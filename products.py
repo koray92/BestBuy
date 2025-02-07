@@ -1,5 +1,4 @@
 class Product:
-
     def __init__(self, name: str, price: float, quantity: int):
         try:
             if name == "" or price <= 0 or quantity <= 0:
@@ -8,7 +7,6 @@ class Product:
             self.price = price
             self.quantity = quantity
             self.active = True
-
         except Exception as e:
             print(e)
 
@@ -21,7 +19,6 @@ class Product:
         self.quantity = quantity
         if self.quantity <= 0:
             self.deactivate()
-
 
 
     def is_active(self):
@@ -49,6 +46,6 @@ class Product:
                 raise ValueError
             total_price = self.price * self.quantity
             self.quantity -= quantity
-            return f"Total price of purchase: {total_price}"
+            return total_price
         except ValueError as v:
             print(v)
