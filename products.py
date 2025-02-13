@@ -22,10 +22,8 @@ class Product:
 
 
     def is_active(self):
-        if self.active:
-            return True
-        else:
-            return False
+        return self.active
+
 
 
     def activate(self):
@@ -44,7 +42,7 @@ class Product:
         try:
             if self.quantity < quantity:
                 raise ValueError
-            total_price = self.price * self.quantity
+            total_price = self.price * quantity
             self.quantity -= quantity
             return total_price
         except ValueError as v:

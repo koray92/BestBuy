@@ -2,34 +2,42 @@ from products import Product
 
 
 
-class Store():
+class Store:
 
 
-    def __init__(self, product_list):
-        self.product_list = product_list
+    def __init__(self, products: list):
+        self.products = products
 
 
     def add_product(self, product):
-        Store.product_list.append(product)
+        self.products.append(product)
 
 
     def remove_product(self, product):
-        Store.product_list.remove(product)
+        self.products.remove(product)
 
 
     def get_total_quantity(self):
-        return Product.get_quantity()
+        total_quantity = 0
+        for item in self.products:
+            total_quantity +=item.get_quantity()
+        return total_quantity
 
 
     def get_all_products(self):
-        if Product.is_active:
-            return self.product_list
+        all_active_products = []
+        for item in self.products:
+            if item.is_active():
+                all_active_products.append(item)
+        return all_active_products
 
 
     def order(self, shopping_list):
         total_price = 0
         for name, quantity in shopping_list:
             total_price += name.buy(quantity)
+            print(quantity)
+            print(name)
         return total_price
 
 
