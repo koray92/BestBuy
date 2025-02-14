@@ -25,7 +25,6 @@ class Product:
         return self.active
 
 
-
     def activate(self):
         self.active = True
 
@@ -43,7 +42,7 @@ class Product:
             if self.quantity < quantity:
                 raise ValueError
             total_price = self.price * quantity
-            self.quantity -= quantity
+            self.quantity -= quantity  # reduce stock after purchase
             return total_price
         except ValueError as v:
             print(v)
