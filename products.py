@@ -1,14 +1,16 @@
+
+
 class Product:
     def __init__(self, name: str, price: float, quantity: int):
         try:
             if name == "" or price <= 0 or quantity <= 0:
-                raise Exception
+                raise ValueError
             self.name = name
             self.price = price
             self.quantity = quantity
             self.active = True
-        except Exception as e:
-            print(e)
+        except ValueError as v:
+            print(v)
 
 
     def get_quantity(self):
@@ -46,3 +48,24 @@ class Product:
             return total_price
         except ValueError as v:
             print(v)
+
+
+class NonStockedProduct(Product):
+    def __init__(self, name: str, price: float):
+        super().__init__(name, price, quantity=0)
+
+    def show(self):
+        return f"{self.name}, Price: {self.price}, this product is not stocked."
+
+
+class LimitedProduct(Product):
+    def __init__(self, name: str, price: float, quantity: int, maximum: int):
+        super().__init__(name, price, quantity)
+        self.maximum = maximum
+
+    def show(self):
+        return f"{self.name}, Price: {self.price}, maximum purchase count: {self.maximum}"
+
+
+
+
