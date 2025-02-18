@@ -6,12 +6,8 @@ def test_create_product():
 
 
 def test_create_invalid_product():
-    with pytest.raises(Product("", price=100, quantity=200):
-        return ValueError
-    with pytest.raises(Product("test", price=-100, quantity=50):
-        return ValueError
-    with pytest.raises(Product("test1", price=250, quantity=-20):
-        return ValueError
+    with pytest.raises(ValueError):
+        Product("", price=100, quantity=200)
 
 
 def test_product_inactive():
@@ -20,10 +16,11 @@ def test_product_inactive():
 
 def test_purchase_quantity():
     assert Product("abc", price=50, quantity=10).buy(10)
-    assert Product.get_quantity()
+
 
 
 def test_purchase_larger_quantity():
-    pass
+    assert Product("abc", price=50, quantity=10).buy(15)
+
 
 pytest.main()

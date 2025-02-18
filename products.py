@@ -1,3 +1,4 @@
+from BestBuy import Store
 
 
 class Product:
@@ -65,6 +66,17 @@ class LimitedProduct(Product):
 
     def show(self):
         return f"{self.name}, Price: {self.price}, maximum purchase count: {self.maximum}"
+
+
+class Promotion(Store):
+    def __init__(self, name, price, quantity):
+        super().__init__(name, price, quantity)
+
+
+
+
+
+
 
 
 
