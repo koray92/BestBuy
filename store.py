@@ -1,4 +1,3 @@
-from products import Product
 
 
 class Store:
