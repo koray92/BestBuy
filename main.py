@@ -40,8 +40,8 @@ def start(store_object):
 
         if user_input == "1":
             print("------------------")
-            for product in store_object.products:
-                print(product.show())
+            for index, product in enumerate(store_object.products, 1):
+                print(f"{index}. {product.show()}")
             print("------------------")
             continue
 
@@ -53,28 +53,50 @@ def start(store_object):
 
         elif user_input == "3":
             print("------------------")
-            for product in store_object.products:
-                print(product.show())
+            for index, product in enumerate(store_object.products, 1):
+                print(f"{index}. {product.show()}")
             print("------------------")
             print("When you want to finish order, enter empty text.")
 
 
             shop_list = []
             while True:
+                try:
+                    product_num_input = input("Which product # do you want? ")
+                    if product_num_input.isdigit() and int(product_num_input) in range(1, MAX_PROD_AMOUNT + 1):
+                        product_amount_input = int(input("What amount do you want? "))
+                        product = store_object.products[int(product_num_input) - 1]
 
-                product_num_input = input("Which product # do you want? ")
-                if product_num_input.isdigit() and int(product_num_input) in range(1, MAX_PROD_AMOUNT + 1):
-                    product_amount_input = int(input("What amount do you want? "))
-                    shop_list.append((store_object.products[int(product_num_input) - 1], product_amount_input))
-                    print("Product added to list!")
+                        # For LimitedProduct
+                        if isinstance(product, NonStockedProduct):
+                            # No stock check for NonStockedProduct
+                            shop_list.append((product, product_amount_input))
+                            print("Product added to list!")
+                            continue
 
+                        # Check if stock is sufficient
+                        if product.get_quantity() < product_amount_input:
+                            print("Not enough stock available.")
+                            continue  # Skip adding this product to the list
 
-                elif product_num_input == "":
-                    print(f"Order made! Total payment: ${store_object.order(shop_list)}")
-                    break
+                        # For LimitedProduct
+                        if isinstance(product, LimitedProduct) and product_amount_input > product.maximum:
+                            raise ValueError(f"Cannot purchase more than {product.maximum} unit(s) of this product.")
 
-                else:
-                    print("Error adding product!")
+                        # Add to shopping list if stock is sufficient
+                        shop_list.append((product, product_amount_input))
+                        print("Product added to list!")
+
+                    elif product_num_input == "":
+                        total_payment = store_object.order(shop_list)
+                        if total_payment > 0:
+                            print(f"Order made! Total payment: ${total_payment}")
+                        break
+                    else:
+                        print("Error adding product!")
+                except ValueError as e:
+                    print(e)
+                    continue
 
 
         elif user_input == "4":

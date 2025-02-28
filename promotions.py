@@ -4,12 +4,12 @@ class Promotion:
     def __init__(self, member):
         self.member = member
 
+
     def apply_promotion(self, product, quantity: float):
         return product.price * quantity
 
 
 class SecondHalfPrice(Promotion):
-    # Promotion doesn't work properly
     def __init__(self, name: str):
         super().__init__(name)
 
@@ -26,6 +26,7 @@ class ThirdOneFree(Promotion):
     def __init__(self, name: str):
         super().__init__(name)
 
+
     def apply_promotion(self, product, quantity: int):
         # Buy 2, get 1 free
         total_price = product.price * (quantity - quantity // 3)
@@ -33,10 +34,10 @@ class ThirdOneFree(Promotion):
 
 
 class PercentDiscount(Promotion):
-    # Promotion doesn't work
     def __init__(self, name: str, percent: float):
         super().__init__(name)
         self.percent = percent
+
 
     def apply_promotion(self, product, quantity: int):
         # Apply percent discount
