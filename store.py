@@ -1,3 +1,4 @@
+from BestBuy.products import Product, LimitedProduct
 
 
 class Store:
@@ -7,11 +8,13 @@ class Store:
 
 
     def add_product(self, product):
-        self.products.append(product)
+        if product in self.products:
+            self.products.append(product)
 
 
     def remove_product(self, product):
-        self.products.remove(product)
+        if product in self.products:
+            self.products.remove(product)
 
 
     def get_total_quantity(self):
@@ -34,6 +37,9 @@ class Store:
         for product, quantity in shopping_list:
             price = product.buy(quantity)
             total_price += price
+
+            if product.get_quantity() == 0:
+                self.remove_product(product)
 
         return total_price
 

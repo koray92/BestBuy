@@ -11,7 +11,8 @@ class Promotion:
 
 class SecondHalfPrice(Promotion):
     def __init__(self, name: str):
-        super().__init__(name)
+        self.name = name
+
 
 
     def apply_promotion(self, product, quantity: int):
@@ -24,7 +25,7 @@ class SecondHalfPrice(Promotion):
 
 class ThirdOneFree(Promotion):
     def __init__(self, name: str):
-        super().__init__(name)
+        self.name = name
 
 
     def apply_promotion(self, product, quantity: int):
@@ -35,7 +36,7 @@ class ThirdOneFree(Promotion):
 
 class PercentDiscount(Promotion):
     def __init__(self, name: str, percent: float):
-        super().__init__(name)
+        self.name = name
         self.percent = percent
 
 

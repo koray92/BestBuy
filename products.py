@@ -10,6 +10,8 @@ class Product:
             self.quantity = quantity
             self.active = True
             self.promotion = None
+
+
         except ValueError as v:
             print(v)
 
@@ -24,8 +26,7 @@ class Product:
 
     def set_quantity(self, quantity):
         self.quantity = quantity
-        if self.quantity <= 0:
-            self.deactivate()
+
 
 
     def is_active(self):
@@ -41,7 +42,8 @@ class Product:
 
 
     def show(self):
-        return f"{self.name}, Price: ${self.price}, Quantity: {self.quantity}"
+        promotion_info = f"Promotion: {self.promotion.name}" if self.promotion else "Promotion: None"
+        return f"{self.name}, Price: ${self.price}, Quantity: {self.quantity}, {promotion_info}"
 
 
     def buy(self, quantity):
@@ -54,6 +56,7 @@ class Product:
                 total_price = self.promotion.apply_promotion(self, quantity)
 
             self.quantity -= quantity  # reduce stock after purchase
+
             return total_price
         except Exception as e:
             print(e)
@@ -71,11 +74,12 @@ class NonStockedProduct(Product):
 
         if self.promotion:
             total_price = self.promotion.apply_promotion(self, quantity)
+
         return total_price
 
 
     def show(self):
-        return f"{self.name}, Price: ${self.price}, this product is not stocked."
+        return f"{self.name}, Price: ${self.price}, Quantity: Unlimited, Promotion: 30% off!"
 
 
 class LimitedProduct(Product):
@@ -85,7 +89,7 @@ class LimitedProduct(Product):
 
 
     def show(self):
-        return f"{self.name}, Price: ${self.price}, maximum purchase count: {self.maximum}"
+        return f"{self.name}, Price: ${self.price}, maximum purchase count: {self.maximum}, Promotion: None"
 
 
     def buy(self, quantity):
@@ -99,6 +103,8 @@ class LimitedProduct(Product):
             total_price = self.promotion.apply_promotion(self, quantity)
 
         self.quantity -= quantity  # reduce stock after purchase
+
+
         return total_price
 
 

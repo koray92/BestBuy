@@ -31,33 +31,30 @@ def show_menu():
           "2. Show total amount in store\n3. Make an order\n4. Quit")
 
 
+def show_products(product_list):
+    print("------------------")
+    for index, product in enumerate(product_list.products, 1):
+        print(f"{index}. {product.show()}")
+    print("------------------")
+
+
 def start(store_object):
     """ Start Function """
-
     while True:
         show_menu()
         user_input = input("Please choose a number: ")
 
         if user_input == "1":
-            print("------------------")
-            for index, product in enumerate(store_object.products, 1):
-                print(f"{index}. {product.show()}")
-            print("------------------")
+            show_products(store_object)
             continue
-
 
         elif user_input == "2":
             print(f"Total of {store_object.get_total_quantity()} items in store")
             continue
 
-
         elif user_input == "3":
-            print("------------------")
-            for index, product in enumerate(store_object.products, 1):
-                print(f"{index}. {product.show()}")
-            print("------------------")
+            show_products(store_object)
             print("When you want to finish order, enter empty text.")
-
 
             shop_list = []
             while True:
@@ -97,7 +94,6 @@ def start(store_object):
                 except ValueError as e:
                     print(e)
                     continue
-
 
         elif user_input == "4":
             break
